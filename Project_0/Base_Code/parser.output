@@ -1,0 +1,545 @@
+Terminals unused in grammar
+
+    TOKEN_INTEGER
+
+
+State 1 conflicts: 8 reduce/reduce
+State 16 conflicts: 10 reduce/reduce
+State 33 conflicts: 6 reduce/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: statementList TOKEN_ENDPROG
+
+    2 statementList: statement TOKEN_SEMI
+    3              | statementList statement TOKEN_SEMI
+
+    4 statement: TOKEN_ID TOKEN_ASSIGN expr
+    5          | expr
+
+    6 expr: expr TOKEN_PLUS term
+    7     | expr TOKEN_MINUS term
+    8     | term
+    9     | TOKEN_ID
+
+   10 term: term TOKEN_MUL factor
+   11     | term TOKEN_DIV factor
+   12     | factor
+   13     | TOKEN_ID
+
+   14 factor: TOKEN_LPAREN expr TOKEN_RPAREN
+   15       | TOKEN_MINUS factor
+   16       | TOKEN_SIN TOKEN_LPAREN expr TOKEN_RPAREN
+   17       | TOKEN_COS TOKEN_LPAREN expr TOKEN_RPAREN
+   18       | TOKEN_INT
+   19       | TOKEN_ID
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    TOKEN_ID <str> (258) 4 9 13 19
+    TOKEN_INTEGER (259)
+    TOKEN_ENDPROG (260) 1
+    TOKEN_INT <value> (261) 18
+    TOKEN_SEMI (262) 2 3
+    TOKEN_PLUS (263) 6
+    TOKEN_MINUS (264) 7 15
+    TOKEN_MUL (265) 10
+    TOKEN_DIV (266) 11
+    TOKEN_LPAREN (267) 14 16 17
+    TOKEN_RPAREN (268) 14 16 17
+    TOKEN_SIN (269) 16
+    TOKEN_ASSIGN (270) 4
+    TOKEN_COS (271) 17
+
+
+Nonterminals, with rules where they appear
+
+    $accept (17)
+        on left: 0
+    program <expression> (18)
+        on left: 1
+        on right: 0
+    statementList <expression> (19)
+        on left: 2 3
+        on right: 1 3
+    statement <expression> (20)
+        on left: 4 5
+        on right: 2 3
+    expr <expression> (21)
+        on left: 6 7 8 9
+        on right: 4 5 6 7 14 16 17
+    term <expression> (22)
+        on left: 10 11 12 13
+        on right: 6 7 8 10 11
+    factor <expression> (23)
+        on left: 14 15 16 17 18 19
+        on right: 10 11 12 15
+
+
+State 0
+
+    0 $accept: • program $end
+
+    TOKEN_ID      shift, and go to state 1
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    program        go to state 7
+    statementList  go to state 8
+    statement      go to state 9
+    expr           go to state 10
+    term           go to state 11
+    factor         go to state 12
+
+
+State 1
+
+    4 statement: TOKEN_ID • TOKEN_ASSIGN expr
+    9 expr: TOKEN_ID •
+   13 term: TOKEN_ID •
+   19 factor: TOKEN_ID •
+
+    TOKEN_ASSIGN  shift, and go to state 13
+
+    TOKEN_SEMI   reduce using rule 9 (expr)
+    TOKEN_SEMI   [reduce using rule 13 (term)]
+    TOKEN_SEMI   [reduce using rule 19 (factor)]
+    TOKEN_PLUS   reduce using rule 9 (expr)
+    TOKEN_PLUS   [reduce using rule 13 (term)]
+    TOKEN_PLUS   [reduce using rule 19 (factor)]
+    TOKEN_MINUS  reduce using rule 9 (expr)
+    TOKEN_MINUS  [reduce using rule 13 (term)]
+    TOKEN_MINUS  [reduce using rule 19 (factor)]
+    TOKEN_MUL    reduce using rule 13 (term)
+    TOKEN_MUL    [reduce using rule 19 (factor)]
+    TOKEN_DIV    reduce using rule 13 (term)
+    TOKEN_DIV    [reduce using rule 19 (factor)]
+    $default     reduce using rule 9 (expr)
+
+
+State 2
+
+   18 factor: TOKEN_INT •
+
+    $default  reduce using rule 18 (factor)
+
+
+State 3
+
+   15 factor: TOKEN_MINUS • factor
+
+    TOKEN_ID      shift, and go to state 14
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    factor  go to state 15
+
+
+State 4
+
+   14 factor: TOKEN_LPAREN • expr TOKEN_RPAREN
+
+    TOKEN_ID      shift, and go to state 16
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    expr    go to state 17
+    term    go to state 11
+    factor  go to state 12
+
+
+State 5
+
+   16 factor: TOKEN_SIN • TOKEN_LPAREN expr TOKEN_RPAREN
+
+    TOKEN_LPAREN  shift, and go to state 18
+
+
+State 6
+
+   17 factor: TOKEN_COS • TOKEN_LPAREN expr TOKEN_RPAREN
+
+    TOKEN_LPAREN  shift, and go to state 19
+
+
+State 7
+
+    0 $accept: program • $end
+
+    $end  shift, and go to state 20
+
+
+State 8
+
+    1 program: statementList • TOKEN_ENDPROG
+    3 statementList: statementList • statement TOKEN_SEMI
+
+    TOKEN_ID       shift, and go to state 1
+    TOKEN_ENDPROG  shift, and go to state 21
+    TOKEN_INT      shift, and go to state 2
+    TOKEN_MINUS    shift, and go to state 3
+    TOKEN_LPAREN   shift, and go to state 4
+    TOKEN_SIN      shift, and go to state 5
+    TOKEN_COS      shift, and go to state 6
+
+    statement  go to state 22
+    expr       go to state 10
+    term       go to state 11
+    factor     go to state 12
+
+
+State 9
+
+    2 statementList: statement • TOKEN_SEMI
+
+    TOKEN_SEMI  shift, and go to state 23
+
+
+State 10
+
+    5 statement: expr •
+    6 expr: expr • TOKEN_PLUS term
+    7     | expr • TOKEN_MINUS term
+
+    TOKEN_PLUS   shift, and go to state 24
+    TOKEN_MINUS  shift, and go to state 25
+
+    $default  reduce using rule 5 (statement)
+
+
+State 11
+
+    8 expr: term •
+   10 term: term • TOKEN_MUL factor
+   11     | term • TOKEN_DIV factor
+
+    TOKEN_MUL  shift, and go to state 26
+    TOKEN_DIV  shift, and go to state 27
+
+    $default  reduce using rule 8 (expr)
+
+
+State 12
+
+   12 term: factor •
+
+    $default  reduce using rule 12 (term)
+
+
+State 13
+
+    4 statement: TOKEN_ID TOKEN_ASSIGN • expr
+
+    TOKEN_ID      shift, and go to state 16
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    expr    go to state 28
+    term    go to state 11
+    factor  go to state 12
+
+
+State 14
+
+   19 factor: TOKEN_ID •
+
+    $default  reduce using rule 19 (factor)
+
+
+State 15
+
+   15 factor: TOKEN_MINUS factor •
+
+    $default  reduce using rule 15 (factor)
+
+
+State 16
+
+    9 expr: TOKEN_ID •
+   13 term: TOKEN_ID •
+   19 factor: TOKEN_ID •
+
+    TOKEN_SEMI    reduce using rule 9 (expr)
+    TOKEN_SEMI    [reduce using rule 13 (term)]
+    TOKEN_SEMI    [reduce using rule 19 (factor)]
+    TOKEN_PLUS    reduce using rule 9 (expr)
+    TOKEN_PLUS    [reduce using rule 13 (term)]
+    TOKEN_PLUS    [reduce using rule 19 (factor)]
+    TOKEN_MINUS   reduce using rule 9 (expr)
+    TOKEN_MINUS   [reduce using rule 13 (term)]
+    TOKEN_MINUS   [reduce using rule 19 (factor)]
+    TOKEN_MUL     reduce using rule 13 (term)
+    TOKEN_MUL     [reduce using rule 19 (factor)]
+    TOKEN_DIV     reduce using rule 13 (term)
+    TOKEN_DIV     [reduce using rule 19 (factor)]
+    TOKEN_RPAREN  reduce using rule 9 (expr)
+    TOKEN_RPAREN  [reduce using rule 13 (term)]
+    TOKEN_RPAREN  [reduce using rule 19 (factor)]
+    $default      reduce using rule 9 (expr)
+
+
+State 17
+
+    6 expr: expr • TOKEN_PLUS term
+    7     | expr • TOKEN_MINUS term
+   14 factor: TOKEN_LPAREN expr • TOKEN_RPAREN
+
+    TOKEN_PLUS    shift, and go to state 24
+    TOKEN_MINUS   shift, and go to state 25
+    TOKEN_RPAREN  shift, and go to state 29
+
+
+State 18
+
+   16 factor: TOKEN_SIN TOKEN_LPAREN • expr TOKEN_RPAREN
+
+    TOKEN_ID      shift, and go to state 16
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    expr    go to state 30
+    term    go to state 11
+    factor  go to state 12
+
+
+State 19
+
+   17 factor: TOKEN_COS TOKEN_LPAREN • expr TOKEN_RPAREN
+
+    TOKEN_ID      shift, and go to state 16
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    expr    go to state 31
+    term    go to state 11
+    factor  go to state 12
+
+
+State 20
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 21
+
+    1 program: statementList TOKEN_ENDPROG •
+
+    $default  reduce using rule 1 (program)
+
+
+State 22
+
+    3 statementList: statementList statement • TOKEN_SEMI
+
+    TOKEN_SEMI  shift, and go to state 32
+
+
+State 23
+
+    2 statementList: statement TOKEN_SEMI •
+
+    $default  reduce using rule 2 (statementList)
+
+
+State 24
+
+    6 expr: expr TOKEN_PLUS • term
+
+    TOKEN_ID      shift, and go to state 33
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    term    go to state 34
+    factor  go to state 12
+
+
+State 25
+
+    7 expr: expr TOKEN_MINUS • term
+
+    TOKEN_ID      shift, and go to state 33
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    term    go to state 35
+    factor  go to state 12
+
+
+State 26
+
+   10 term: term TOKEN_MUL • factor
+
+    TOKEN_ID      shift, and go to state 14
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    factor  go to state 36
+
+
+State 27
+
+   11 term: term TOKEN_DIV • factor
+
+    TOKEN_ID      shift, and go to state 14
+    TOKEN_INT     shift, and go to state 2
+    TOKEN_MINUS   shift, and go to state 3
+    TOKEN_LPAREN  shift, and go to state 4
+    TOKEN_SIN     shift, and go to state 5
+    TOKEN_COS     shift, and go to state 6
+
+    factor  go to state 37
+
+
+State 28
+
+    4 statement: TOKEN_ID TOKEN_ASSIGN expr •
+    6 expr: expr • TOKEN_PLUS term
+    7     | expr • TOKEN_MINUS term
+
+    TOKEN_PLUS   shift, and go to state 24
+    TOKEN_MINUS  shift, and go to state 25
+
+    $default  reduce using rule 4 (statement)
+
+
+State 29
+
+   14 factor: TOKEN_LPAREN expr TOKEN_RPAREN •
+
+    $default  reduce using rule 14 (factor)
+
+
+State 30
+
+    6 expr: expr • TOKEN_PLUS term
+    7     | expr • TOKEN_MINUS term
+   16 factor: TOKEN_SIN TOKEN_LPAREN expr • TOKEN_RPAREN
+
+    TOKEN_PLUS    shift, and go to state 24
+    TOKEN_MINUS   shift, and go to state 25
+    TOKEN_RPAREN  shift, and go to state 38
+
+
+State 31
+
+    6 expr: expr • TOKEN_PLUS term
+    7     | expr • TOKEN_MINUS term
+   17 factor: TOKEN_COS TOKEN_LPAREN expr • TOKEN_RPAREN
+
+    TOKEN_PLUS    shift, and go to state 24
+    TOKEN_MINUS   shift, and go to state 25
+    TOKEN_RPAREN  shift, and go to state 39
+
+
+State 32
+
+    3 statementList: statementList statement TOKEN_SEMI •
+
+    $default  reduce using rule 3 (statementList)
+
+
+State 33
+
+   13 term: TOKEN_ID •
+   19 factor: TOKEN_ID •
+
+    TOKEN_SEMI    reduce using rule 13 (term)
+    TOKEN_SEMI    [reduce using rule 19 (factor)]
+    TOKEN_PLUS    reduce using rule 13 (term)
+    TOKEN_PLUS    [reduce using rule 19 (factor)]
+    TOKEN_MINUS   reduce using rule 13 (term)
+    TOKEN_MINUS   [reduce using rule 19 (factor)]
+    TOKEN_MUL     reduce using rule 13 (term)
+    TOKEN_MUL     [reduce using rule 19 (factor)]
+    TOKEN_DIV     reduce using rule 13 (term)
+    TOKEN_DIV     [reduce using rule 19 (factor)]
+    TOKEN_RPAREN  reduce using rule 13 (term)
+    TOKEN_RPAREN  [reduce using rule 19 (factor)]
+    $default      reduce using rule 13 (term)
+
+
+State 34
+
+    6 expr: expr TOKEN_PLUS term •
+   10 term: term • TOKEN_MUL factor
+   11     | term • TOKEN_DIV factor
+
+    TOKEN_MUL  shift, and go to state 26
+    TOKEN_DIV  shift, and go to state 27
+
+    $default  reduce using rule 6 (expr)
+
+
+State 35
+
+    7 expr: expr TOKEN_MINUS term •
+   10 term: term • TOKEN_MUL factor
+   11     | term • TOKEN_DIV factor
+
+    TOKEN_MUL  shift, and go to state 26
+    TOKEN_DIV  shift, and go to state 27
+
+    $default  reduce using rule 7 (expr)
+
+
+State 36
+
+   10 term: term TOKEN_MUL factor •
+
+    $default  reduce using rule 10 (term)
+
+
+State 37
+
+   11 term: term TOKEN_DIV factor •
+
+    $default  reduce using rule 11 (term)
+
+
+State 38
+
+   16 factor: TOKEN_SIN TOKEN_LPAREN expr TOKEN_RPAREN •
+
+    $default  reduce using rule 16 (factor)
+
+
+State 39
+
+   17 factor: TOKEN_COS TOKEN_LPAREN expr TOKEN_RPAREN •
+
+    $default  reduce using rule 17 (factor)

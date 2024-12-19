@@ -1,0 +1,10 @@
+parse successful: (12)
+evaluates to: 12
+parse successful: ((24)+(20))
+evaluates to: 44
+parse successful: ((44)-((12)*(3)))
+evaluates to: 8
+parse successful: ((8)+(44))
+evaluates to: 52
+parse successful: (((52)+(1))/(2))
+evaluates to: 26
